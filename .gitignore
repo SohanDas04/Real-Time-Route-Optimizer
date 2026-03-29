@@ -1,0 +1,22 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/traffic_data.csv
+backend/traffic_model.ubj
+
+# Environment files
+backend/.env
+frontend/.env
+
+# OSRM map data (huge files, don't commit)
+osrm-data/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
