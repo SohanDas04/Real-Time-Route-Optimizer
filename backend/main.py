@@ -17,15 +17,15 @@ async def track(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
-            # data = {lat, lng, dest_lat, dest_lng, timestamp}
             routes = await get_routes(
                 data["lat"], data["lng"],
                 data["dest_lat"], data["dest_lng"]
             )
             for route in routes:
-                route["score"] = await score_route(route, data["timestamp"])
+                ml_time = await score_route(route, data["timestamp"])
+                route["duration"] = round(ml_time / 60, 2)  # convert seconds to minutes
 
-            routes.sort(key=lambda r: r["score"])
+            routes.sort(key=lambda r: r["duration"])
             routes[0]["isRecommended"] = True
             await websocket.send_json({"routes": routes})
     except WebSocketDisconnect:

@@ -4,6 +4,7 @@ import { useRouteStore } from "../../store/routeStore";
 export function RouteLayer() {
   const routes = useRouteStore((s) => s.routes);
   const selected = useRouteStore((s) => s.selectedRouteIndex);
+  const setSelectedRoute = useRouteStore((s) => s.setSelectedRoute);
 
   return routes.map((route, i) => (
     <Source key={i} id={`route-${i}`} type="geojson" data={route.geojson}>
@@ -16,6 +17,7 @@ export function RouteLayer() {
           "line-opacity": i === selected ? 1 : 0.5,
         }}
         layout={{ "line-cap": "round", "line-join": "round" }}
+        onClick={() => setSelectedRoute(i)}
       />
     </Source>
   ));
